@@ -1,0 +1,26 @@
+# sudo cp example.service /etc/systemd/system/example.service
+# sudo systemctl daemon-reload
+# sudo systemctl enable example
+# systemctl status | grep airdb
+
+[Unit]
+Description=Caddy Waf @ https://github.com/airdb/caddywaf
+After=
+Wants=
+Documentation=https://airdb.github.io
+Documentation=https://github.com/airdb/caddywaf
+
+[Service]
+User=root
+Group=root
+WorkingDirectory=/home/ubuntu/go/src/github.com/airdb/caddywaf/
+#ExecStartPre=/bin/cd /home/ubuntu/go/src/github.com/airdb/caddywaf/
+ExecStart=/home/ubuntu/go/src/github.com/airdb/caddywaf/caddy run -watch -config Caddyfile.live
+Restart=always
+RestartSec=20
+KillSignal=SIGTERM
+TimeoutStopSec=20
+SendSIGKILL=yes
+
+[Install]
+WantedBy=multi-user.target

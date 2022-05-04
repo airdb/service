@@ -1,0 +1,23 @@
+# sudo cp noah.service /etc/systemd/system/noah.service
+# sudo systemctl daemon-reload
+# sudo systemctl enable noah
+
+[Unit]
+Description=Noah Agent @ https://airdb.github.io/
+After=
+Wants=
+Documentation=https://airdb.github.io
+Documentation=https://github.com/airdb/noah
+
+[Service]
+User=root
+Group=root
+ExecStart=/opt/noah/bin/noah run
+Restart=always
+RestartSec=20
+KillSignal=SIGTERM
+TimeoutStopSec=20
+SendSIGKILL=yes
+
+[Install]
+WantedBy=multi-user.target
